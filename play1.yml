@@ -1,0 +1,27 @@
+---
+- hosts: all
+ 
+  gather_facts: yes
+  ignore_errors: true
+  vars:
+    user_name: kofi2029
+    group_name: devops
+  vars_files:
+   - variables.yml
+  tasks:
+    - name: Check the time
+      command: datepuoitgu
+#      when: ansible_distribution == "kofi" or ansible_processor_nproc == 2
+    - name: create user kofi
+      user:
+         name: "{{user_name}}"
+         comment: Kofi Admin
+    - name: "{{group_name}}"
+      group:
+         name: security
+         state: present
+      become: true
+    - name: Install package
+      package: 
+        name: "{{pkg_name}}"
+        state: present
